@@ -396,6 +396,7 @@ function Projects() {
             border: "1px solid rgba(255,34,68,0.25)",
             position: "relative", overflow: "hidden",
             boxShadow: "0 0 80px rgba(255,34,68,0.07)",
+            // position: "relative", zIndex: 0, isolation: "isolate",
           }}>
             <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 2, background: "linear-gradient(to right, #ff2244, #ff6080, transparent)" }} />
             <div style={{ position: "absolute", top: -60, right: -60, width: 200, height: 200, borderRadius: "50%", background: "radial-gradient(circle, rgba(255,34,68,0.08) 0%, transparent 70%)", pointerEvents: "none" }} />
@@ -455,7 +456,7 @@ function Projects() {
         </AnimatedSection>
       )}
 
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 2 }}>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 10, marginTop: 10 }}>
         {rest.map((p, i) => (
           <AnimatedSection key={p.name} delay={i * 80}>
             <div
@@ -467,9 +468,11 @@ function Projects() {
                 border: `1px solid ${hovered === i ? "rgba(255,34,68,0.25)" : "#141414"}`,
                 cursor: "pointer",
                 transition: "all 0.4s cubic-bezier(0.16,1,0.3,1)",
-                transform: hovered === i ? "translateY(-8px)" : "none",
+                transform: hovered === i ? "translateY(-8px)" : "translateY(0px)",
                 boxShadow: hovered === i ? "0 24px 60px rgba(255,34,68,0.08)" : "none",
                 position: "relative", overflow: "hidden", height: "100%",
+                zIndex: hovered === i ? 2 : 1,
+                isolation: "isolate",
               }}
             >
               <div style={{
