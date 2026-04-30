@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 const skills = [
   { name: "Flutter", level: 95 },
@@ -374,6 +375,7 @@ function Experience() {
 
 function Projects() {
   const [hovered, setHovered] = useState<number | null>(null);
+  const navigate = useNavigate();
   const featured = projects.find(p => p.featured);
   const rest = projects.filter(p => !p.featured);
 
@@ -427,19 +429,22 @@ function Projects() {
                   ))}
                 </div>
                 {featured.link && (
-                  <a href={featured.link} target="_blank" rel="noreferrer" style={{
-                    display: "inline-block", padding: "14px 36px",
-                    background: "#ff2244", color: "#fff",
-                    fontFamily: "'Space Mono', monospace", fontSize: 12, letterSpacing: 2,
-                    textDecoration: "none", textTransform: "uppercase",
-                    boxShadow: "0 0 30px rgba(255,34,68,0.35)",
-                    transition: "all 0.3s ease", border: "1px solid #ff2244",
-                  }}
-                    onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "transparent"; (e.currentTarget as HTMLElement).style.color = "#ff2244"; }}
-                    onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "#ff2244"; (e.currentTarget as HTMLElement).style.color = "#fff"; }}
-                  >
-                    {featured.linkLabel}
-                  </a>
+                  <div style={{ display: "flex", gap: 16, flexWrap: "wrap", alignItems: "center" }}>
+                    <a href={featured.link} target="_blank" rel="noreferrer" style={{
+                      display: "inline-block", padding: "14px 36px",
+                      background: "#ff2244", color: "#fff",
+                      fontFamily: "'Space Mono', monospace", fontSize: 12, letterSpacing: 2,
+                      textDecoration: "none", textTransform: "uppercase",
+                      boxShadow: "0 0 30px rgba(255,34,68,0.35)",
+                      transition: "all 0.3s ease", border: "1px solid #ff2244",
+                    }}
+                      onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "transparent"; (e.currentTarget as HTMLElement).style.color = "#ff2244"; }}
+                      onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "#ff2244"; (e.currentTarget as HTMLElement).style.color = "#fff"; }}
+                    >
+                      {featured.linkLabel}
+                    </a>
+
+                  </div>
                 )}
               </div>
               <div style={{
@@ -474,6 +479,10 @@ function Projects() {
                 zIndex: hovered === i ? 2 : 1,
                 isolation: "isolate",
               }}
+              onClick={() => {
+                if (p.name === "Zap") navigate("/zap");
+                if (p.name === "Todoer") navigate("/todoer");
+              }}
             >
               <div style={{
                 position: "absolute", top: 0, left: 0, right: 0, height: 2,
@@ -498,6 +507,33 @@ function Projects() {
                   }}>{tag}</span>
                 ))}
               </div>
+
+              {/* Preview Button Overlay */}
+              {(p.name === "Todoer" || p.name === "Zap") && (
+                <div style={{
+                  position: "absolute",
+                  top: 36,
+                  right: 36,
+                  opacity: hovered === i ? 1 : 0,
+                  transform: hovered === i ? "translateY(0)" : "translateY(-12px)",
+                  transition: "all 0.4s cubic-bezier(0.16,1,0.3,1)",
+                  pointerEvents: "none",
+                  zIndex: 10,
+                }}>
+                  <div style={{
+                    background: "#ff2244",
+                    color: "#fff",
+                    fontFamily: "'Space Mono', monospace",
+                    fontSize: 10,
+                    padding: "10px 20px",
+                    letterSpacing: 2,
+                    borderRadius: 2,
+                    boxShadow: "0 10px 30px rgba(255,34,68,0.4)",
+                  }}>
+                    PREVIEW →
+                  </div>
+                </div>
+              )}
             </div>
           </AnimatedSection>
         ))}
