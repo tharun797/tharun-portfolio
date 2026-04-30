@@ -302,7 +302,7 @@ function Hero() {
           display: "flex", gap: 40, marginTop: 64, flexWrap: "wrap",
           opacity: loaded ? 1 : 0, transition: "opacity 0.8s ease 0.9s",
         }}>
-          {[["3+", "Years Exp."], ["10+", "Apps Built"], ["200+", "Users Served"], ["25%", "Bugs Squashed"]].map(([num, label]) => (
+          {[["3+", "Years Exp."], ["3+", "Apps Built"], ["200+", "Users Served"], ["25%", "Bugs Squashed"]].map(([num, label]) => (
             <div key={label}>
               <div style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 40, color: "#ff2244", lineHeight: 1 }}>{num}</div>
               <div style={{ fontFamily: "'Space Mono', monospace", fontSize: 11, color: "#555", letterSpacing: 2, textTransform: "uppercase", marginTop: 4 }}>{label}</div>
